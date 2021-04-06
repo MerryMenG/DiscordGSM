@@ -148,6 +148,10 @@ class DiscordGSM():
                 server_cache = ServerCache(server['addr'], server['port'])
                 data = server_cache.get_data()
                 if data and server_cache.get_status() == 'Online':
+                    # Valheim player count correction
+                    if data["game"] == 'Valheim':
+                        data["maxplayers"] = 10
+
                     total_activeplayers += int(data['players'])
                     total_maxplayers += int(data['maxplayers'])
                   
@@ -159,6 +163,10 @@ class DiscordGSM():
             server_cache = ServerCache(self.server_list[self.current_display_server]['addr'], self.server_list[self.current_display_server]['port'])
             data = server_cache.get_data()
             if data and server_cache.get_status() == 'Online':
+                # Valheim player count correction
+                if data["game"] == 'Valheim':
+                    data["maxplayers"] = 10
+                    
                 activity_text = f'{data["players"]}/{data["maxplayers"]} on {data["name"]}' if int(data["maxplayers"]) > 0 else '0 players'
             else:
                 activity_text = None
@@ -217,6 +225,10 @@ class DiscordGSM():
         data = server_cache.get_data()
 
         if data:
+            # Valheim player count correction
+            if data["game"] == 'Valheim':
+                data["maxplayers"] = 10
+
             # load server status Online/Offline
             status = server_cache.get_status()
 
