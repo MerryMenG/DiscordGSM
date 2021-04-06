@@ -241,12 +241,14 @@ class DiscordGSM():
 
             title = (data['password'] and ':lock: ' or '') + f'`{data["name"]}`'
             custom = ('custom' in server) and server['custom'] or None
-            if custom and custom.strip():
-                embed = discord.Embed(title=title, description=custom, color=color)
-            elif server['type'] == 'SourceQuery' and not custom:
+
+            if server['type'] == 'SourceQuery':
                 embed = discord.Embed(title=title, description=f'Connect: steam://connect/{data["addr"]}:{server["port"]}', color=color)
             else:
                 embed = discord.Embed(title=title, color=color)
+
+            if custom and custom.strip():
+                embed.add_field(name="Info", value=custom, inline=False)
 
             embed.add_field(name=FIELD_STATUS, value=f'{emoji} **{status}**', inline=True)
             embed.add_field(name=f'{FIELD_ADDRESS}:{FIELD_PORT}', value=f'`{data["addr"]}:{data["port"]}`', inline=True)
