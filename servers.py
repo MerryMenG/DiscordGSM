@@ -3,6 +3,7 @@ import socket
 import urllib
 import asyncio
 from bin import *
+from mcstatus import MinecraftServer
 
 def fire_and_forget(f):
     def wrapped(*args, **kwargs): return asyncio.get_event_loop().run_in_executor(None, f, *args, *kwargs)
@@ -107,6 +108,16 @@ class Servers:
             server_cache = ServerCache(server['addr'], server['port'])
             if result:
                 server_cache.save_data(server['game'], server['port'], result['Hostname'], result['Map'], result['MaxPlayers'], result['Players'], result['Bots'], result['Password'])
+            else:
+                server_cache.set_status('Offline')
+
+        elif server['type'] == 'MinecraftServer':
+            query = MinecraftServer(str(server['addr']), int(server['port']))
+            result = query.status()
+
+            server_cache = ServerCache(server['addr'], server['port'])
+            if result:
+                server_cache.save_data(server['game'], server['port'], server['name'], server['mod'], result.players.max, result.players.online, 0, False)
             else:
                 server_cache.set_status('Offline')
 

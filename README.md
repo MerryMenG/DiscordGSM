@@ -33,3 +33,33 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 ## Stargazers over time
 [![Stargazers over time](https://starchart.cc/DiscordGSM/DiscordGSM.svg)](https://starchart.cc/DiscordGSM/DiscordGSM)
+
+## Server config examples
+```
+[
+    {
+        "type": "SourceQuery",
+        "game": "Game Name",
+        "addr": "123.123.123.123",
+        "port": 27015,
+        "channel": <Discord Channel ID>,
+        "image_url": "<Thumbnail image URL>",
+        "color": "#27b7d8",
+        "country": "GB",
+        "custom": "A short description or info"
+    },
+    {
+        "type": "MinecraftServer",
+        "game": "Minecraft",
+        "addr": "124.124.124.124",
+        "port": 25565,
+        "channel": <Discord Channel ID>,
+        "image_url": "<Thumbnail image URL>",
+        "color": "#34aa2f",
+        "country": "GB",
+        "custom": "A short description or info",
+        "name": "Server name",
+        "mod": "Mod name"
+    }
+]
+```
